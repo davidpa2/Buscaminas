@@ -46,10 +46,8 @@ function generateTable() {
 function click(i, j) {
     console.log(`${i} , ${j}`);
     if (firstClick) {
-        // let firstNumber = Math.floor(Math.random() * (1 - 4) + 4);
-        firstClick = false;
-        // generateBombs1(i, j);
         generateBombs(i, j);
+        firstClick = false;
     }
 
 }
@@ -66,10 +64,10 @@ function generateBombs(i, j) {
         x = Math.floor(Math.random() * (0 - 10) + 10);
         y = Math.floor(Math.random() * (0 - 10) + 10);
 
-        if (matriz[x][y] != 'B' && (x!=i && y!=j)) {
+        if (matriz[x][y] != 'B' && (`${x}${y}` != `${i}${j}`)) {
             matriz[x][y] = 'B';
             generatedBombs++;
-        } 
+        }
     }
     console.log(generatedBombs);
     generateTable();
