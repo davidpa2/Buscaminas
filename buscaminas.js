@@ -1,7 +1,7 @@
 var tableSize = 10;
 var matriz = new Array(tableSize);
-var firstClick = false;
-var bombs = 25;
+var firstClick = true;
+var bombs = 35;
 
 generateMatriz();
 generateTable();
@@ -38,31 +38,38 @@ function generateTable() {
     }
 }
 
+/**
+ * Detectar cuando se hace click en el tablero
+ * @param {*} i 
+ * @param {*} j 
+ */
 function click(i, j) {
     console.log(`${i} , ${j}`);
-    if (!firstClick) {
+    if (firstClick) {
         // let firstNumber = Math.floor(Math.random() * (1 - 4) + 4);
-        // firstClick = true;
+        firstClick = false;
+        // generateBombs1(i, j);
         generateBombs(i, j);
     }
 
 }
 
+/**
+ * Generar las bombas de forma aleatoria
+ * @param {*} i Coordenada i para evitar que se genere una bomba en la posición en la que se ha hecho click
+ * @param {*} j Coordenada j similar
+ */
 function generateBombs(i, j) {
-    var generatedBombs = 0;
+    let x, y, generatedBombs = 0;
 
-    while (generatedBombs <= bombs) {
-        for (let i = 0; i < matriz.length; i++) {
-            for (let j = 0; j < matriz[i].length; j++) {
-                number = Math.floor(Math.random() * (0 - 2) + 2);
-                if (number) {
-                    matriz[i][j] = 1;
-                    generatedBombs++;
-                } else {
+    while (generatedBombs < bombs) {
+        x = Math.floor(Math.random() * (0 - 10) + 10);
+        y = Math.floor(Math.random() * (0 - 10) + 10);
 
-                }
-            }
-        }
+        if (matriz[x][y] != 'B' && (x!=i && y!=j)) {
+            matriz[x][y] = 'B';
+            generatedBombs++;
+        } 
     }
     console.log(generatedBombs);
     generateTable();
