@@ -2,9 +2,11 @@ var tableSize = 10;
 var matriz = new Array(tableSize);
 var firstClick = true;
 var bombs = 35;
+var board = document.getElementById('board');
 
 generateMatriz();
-generateTable();
+// generateTable();
+generateTable2();
 
 /**
  * Generar una matriz de tamaño variable
@@ -30,11 +32,34 @@ function generateTable() {
             document.write(
                 `<td id="${i}${j}" class="cell">${matriz[i][j]}</td>`
             );
-            document.getElementById(`${i}${j}`).addEventListener("click", function() {
-                click(`${i}`,`${j}`);
+            document.getElementById(`${i}${j}`).addEventListener("click", function () {
+                click(`${i}`, `${j}`);
             })
         }
         document.write("</tr>");
+    }
+}
+
+/**
+ * Generar la tabla HTML a partir de la matriz
+ */
+function generateTable2() {
+    board.innerHTML = "";
+
+    for (let i = 0; i < matriz.length; i++) {
+        let row = document.createElement('tr');
+        board.appendChild(row);
+        for (let j = 0; j < matriz[i].length; j++) {
+            let cell = document.createElement('td');
+            cell.classList += 'cell';
+            cell.id = `${i}${j}`;
+            let value = document.createTextNode(matriz[i][j]);
+            cell.appendChild(value);
+            row.appendChild(cell);
+            document.getElementById(`${i}${j}`).addEventListener("click", function () {
+                click(`${i}`, `${j}`);
+            })
+        }
     }
 }
 
@@ -70,5 +95,5 @@ function generateBombs(i, j) {
         }
     }
     console.log(generatedBombs);
-    generateTable();
+    generateTable2();
 }
