@@ -3,6 +3,7 @@ var matriz = new Array(tableSize);
 var firstClick = true;
 var bombs = 35;
 var board = document.getElementById('board');
+let bounces = 0;
 
 generateMatriz();
 // generateTable();
@@ -69,12 +70,14 @@ function generateTable2() {
  * @param {*} j 
  */
 function click(i, j) {
-    console.log(`${i} , ${j}`);
-    if (firstClick) {
-        generateBombs(i, j);
-        firstClick = false;
+    if (matriz[i][j] == 0 || matriz[i][j] == 'B') {
+        console.log(`Click: ${i} , ${j}`);
+        if (firstClick) {
+            generateBombs(i, j);
+            firstClick = false;
+        }
+        showCell(i, j);
     }
-
 }
 
 /**
@@ -96,4 +99,53 @@ function generateBombs(i, j) {
     }
     console.log(generatedBombs);
     generateTable2();
+}
+
+function showCell(i, j) {
+    let mines = 0;
+
+    for (let x = parseInt(i) - 1; x <= parseInt(i) + 1; x++) {
+        for (let y = parseInt(j) - 1; y <= parseInt(j) + 1; y++) {
+            if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
+                let cell = document.getElementById(`${x}${y}`);
+                // console.log(cell.innerHTML);
+                if (cell.innerHTML == 'B') {
+                    mines++;
+                }
+                // if (cell.innerHTML == 0 && bounces < 2) {
+                //     showCell(x, y);
+                //     bounces++;
+                //     console.log(bounces);
+                // }
+            }
+        }
+    }
+    paintCell(i, j, mines);
+}
+
+function paintCell(i, j, mines) {
+    let clickedCell = document.getElementById(i + j);
+    clickedCell.innerHTML = '';
+    let number = document.createTextNode(mines);
+    clickedCell.appendChild(number);
+    matriz[i][j] = number;
+    clickedCell.style.background = 'white';
+
+    switch (mines) {
+        case 1:
+            clickedCell.style.color = 'blue';
+            break;
+        case 2:
+            clickedCell.style.color = 'yellow';
+            break;
+        case 3:
+            clickedCell.style.color = 'orange';
+            break;
+        case 4:
+            clickedCell.style.color = 'red';
+            break;
+        default:
+            clickedCell.style.color = 'purple';
+            break;
+    }
 }
