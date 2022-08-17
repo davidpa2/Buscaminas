@@ -28,3 +28,7 @@ html {
     cursor: pointer;
     background-color: lightskyblue;
 }
+
+.hover {
+    background-color: lightskyblue;
+}

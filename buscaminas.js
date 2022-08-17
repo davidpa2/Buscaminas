@@ -1,9 +1,11 @@
 var tableSize = 10;
 var matriz = new Array(tableSize);
+var solvedMatriz = new Array(tableSize);
 var firstClick = true;
-var bombs = 35;
+var bombs = 16;
 var board = document.getElementById('board');
 let bounces = 0;
+var cellsShowed = [];
 
 generateMatriz();
 // generateTable();
@@ -15,8 +17,10 @@ generateTable2();
 function generateMatriz() {
     for (let i = 0; i < tableSize; i++) {
         matriz[i] = new Array(tableSize);
+        solvedMatriz[i] = new Array(tableSize);
         for (let j = 0; j < matriz[i].length; j++) {
-            matriz[i][j] = 0;
+            matriz[i][j] = '';
+            solvedMatriz[i][j] = '';
         }
     }
     console.log(matriz);
@@ -54,12 +58,36 @@ function generateTable2() {
             let cell = document.createElement('td');
             cell.classList += 'cell';
             cell.id = `${i}${j}`;
+
             let value = document.createTextNode(matriz[i][j]);
             cell.appendChild(value);
             row.appendChild(cell);
-            document.getElementById(`${i}${j}`).addEventListener("click", function () {
+
+            cell.addEventListener("click", function () {
                 click(`${i}`, `${j}`);
             })
+            cell.addEventListener("contextmenu", function () {
+                placeFlag(cell);
+            })
+            /*             cell.addEventListener("mouseover", function () {
+                            console.log('buuuu');
+                            for (let x = i - 1; x <= i + 1; x++) {
+                                for (let y = j - 1; y <= j + 1; y++) {
+                                    let cellHover = document.getElementById(`${x}${y}`);
+                                    cellHover.classList += 'hover';
+                                    console.log(cellHover.classList);
+                                }
+                            }
+                        })
+                        cell.addEventListener("mouseleave", function () {
+                            console.log('buuuuaaaaa');
+                            for (let x = i - 1; x <= i + 1; x++) {
+                                for (let y = j - 1; y <= j + 1; y++) {
+                                    let cellHover = document.getElementById(`${x}${y}`);
+                                    cellHover.classList -= 'hover';
+                                }
+                            }
+                        }) */
         }
     }
 }
@@ -70,13 +98,18 @@ function generateTable2() {
  * @param {*} j 
  */
 function click(i, j) {
-    if (matriz[i][j] == 0 || matriz[i][j] == 'B') {
+    if (matriz[i][j] == '' || matriz[i][j] == 'B') {
         console.log(`Click: ${i} , ${j}`);
         if (firstClick) {
             generateBombs(i, j);
             firstClick = false;
         }
-        showCell(i, j);
+
+        if (matriz[i][j] == 'B') {
+            lose();
+        } else {
+            showCell(i, j);
+        }
     }
 }
 
@@ -97,8 +130,7 @@ function generateBombs(i, j) {
             generatedBombs++;
         }
     }
-    console.log(generatedBombs);
-    generateTable2();
+    solveGame();
 }
 
 function showCell(i, j) {
@@ -107,16 +139,15 @@ function showCell(i, j) {
     for (let x = parseInt(i) - 1; x <= parseInt(i) + 1; x++) {
         for (let y = parseInt(j) - 1; y <= parseInt(j) + 1; y++) {
             if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
-                let cell = document.getElementById(`${x}${y}`);
-                // console.log(cell.innerHTML);
-                if (cell.innerHTML == 'B') {
+                if (matriz[x][y] == 'B') {
                     mines++;
                 }
-                // if (cell.innerHTML == 0 && bounces < 2) {
-                //     showCell(x, y);
-                //     bounces++;
-                //     console.log(bounces);
-                // }
+                if (!cellsShowed.includes(`${x}${y}`)) {
+                    if (solvedMatriz[x][y] <= 1) {
+                        cellsShowed.push(`${x}${y}`);
+                        showCell(`${x}`, `${y}`);
+                    }
+                }
             }
         }
     }
@@ -148,4 +179,45 @@ function paintCell(i, j, mines) {
             clickedCell.style.color = 'purple';
             break;
     }
+}
+
+function placeFlag(cell) {
+    if (cell.innerHTML == '' || cell.innerHTML == 'F') {
+        (cell.innerHTML == 'F') ? cell.innerHTML = '' : cell.innerHTML = 'F';
+        (cell.style.color != 'red') ? cell.style.color == 'white' : cell.style.color == 'red';
+    }
+}
+
+function lose() {
+    alert('Has perdido');
+    delete matriz;
+    delete solvedMatriz;
+    cellsShowed = [];
+    firstClick = true;
+    board.innerHTML = '';
+    generateMatriz();
+    generateTable2();
+}
+
+function solveGame() {
+    for (let i = 0; i < tableSize; i++) {
+        for (let j = 0; j < tableSize; j++) {
+            let mines = 0;
+            if (matriz[i][j] != 'B') {
+                for (let x = i - 1; x <= i + 1; x++) {
+                    for (let y = j - 1; y <= j + 1; y++) {
+                        if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
+                            if (matriz[x][y] == 'B') {
+                                mines++;
+                            }
+                        }
+                        solvedMatriz[i][j] = mines;
+                    }
+                }
+            } else {
+                solvedMatriz[i][j] = 'B';
+            }
+        }
+    }
+    console.log(solvedMatriz);
 }
