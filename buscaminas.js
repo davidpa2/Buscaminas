@@ -8,8 +8,7 @@ let bounces = 0;
 var cellsShowed = [];
 
 generateMatriz();
-// generateTable();
-generateTable2();
+generateTable();
 
 /**
  * Generar una matriz de tamaño variable
@@ -30,25 +29,6 @@ function generateMatriz() {
  * Generar la tabla HTML a partir de la matriz
  */
 function generateTable() {
-    document.write("<table border=1>");
-    for (let i = 0; i < matriz.length; i++) {
-        document.write("<tr>");
-        for (let j = 0; j < matriz[i].length; j++) {
-            document.write(
-                `<td id="${i}${j}" class="cell">${matriz[i][j]}</td>`
-            );
-            document.getElementById(`${i}${j}`).addEventListener("click", function () {
-                click(`${i}`, `${j}`);
-            })
-        }
-        document.write("</tr>");
-    }
-}
-
-/**
- * Generar la tabla HTML a partir de la matriz
- */
-function generateTable2() {
     board.innerHTML = "";
 
     for (let i = 0; i < matriz.length; i++) {
@@ -69,25 +49,43 @@ function generateTable2() {
             cell.addEventListener("contextmenu", function () {
                 placeFlag(cell);
             })
-            /*             cell.addEventListener("mouseover", function () {
-                            console.log('buuuu');
-                            for (let x = i - 1; x <= i + 1; x++) {
-                                for (let y = j - 1; y <= j + 1; y++) {
-                                    let cellHover = document.getElementById(`${x}${y}`);
-                                    cellHover.classList += 'hover';
-                                    console.log(cellHover.classList);
-                                }
-                            }
-                        })
-                        cell.addEventListener("mouseleave", function () {
-                            console.log('buuuuaaaaa');
-                            for (let x = i - 1; x <= i + 1; x++) {
-                                for (let y = j - 1; y <= j + 1; y++) {
-                                    let cellHover = document.getElementById(`${x}${y}`);
-                                    cellHover.classList -= 'hover';
-                                }
-                            }
-                        }) */
+            // cell.addEventListener("auxclick", function () {
+            //     cell.addEventListener('mouseenter', function () {
+            //         for (let x = i - 1; x <= i + 1; x++) {
+            //             for (let y = j - 1; y <= j + 1; y++) {
+            //                 if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
+            //                     let cellHover = document.getElementById(`${x}${y}`);
+            //                     cellHover.classList.add('hover')
+            //                     console.log(cellHover.classList);
+            //                 }
+            //             }
+            //         }
+
+            //     })
+            // })
+            // cell.addEventListener("wheel", function () {
+            //     console.log('buuuu');
+            //     for (let x = i - 1; x <= i + 1; x++) {
+            //         for (let y = j - 1; y <= j + 1; y++) {
+            //             if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
+            //                 let cellHover = document.getElementById(`${x}${y}`);
+            //                 cellHover.classList.add('hover')
+            //                 console.log(cellHover.classList);
+            //             }
+            //         }
+            //     }
+            // })
+            // cell.addEventListener("mouseleave", function () {
+            //     console.log('buuuuaaaaa');
+            //     for (let x = i - 1; x <= i + 1; x++) {
+            //         for (let y = j - 1; y <= j + 1; y++) {
+            //             if ((x < tableSize && y < tableSize) && (x >= 0 && y >= 0)) {
+            //                 let cellHover = document.getElementById(`${x}${y}`);
+            //                 cellHover.classList.remove('hover');
+            //             }
+            //         }
+            //     }
+            // })
         }
     }
 }
@@ -181,11 +179,17 @@ function paintCell(i, j, mines) {
     }
 }
 
+// function placeFlag(cell) {
+//     if (cell.innerHTML == '' || cell.innerHTML == 'F') {
+//         (cell.innerHTML == 'F') ? cell.innerHTML = '' : cell.innerHTML = 'F';
+//         (cell.style.color != 'red') ? cell.style.color == 'white' : cell.style.color == 'red';
+//     }
+// }
 function placeFlag(cell) {
-    if (cell.innerHTML == '' || cell.innerHTML == 'F') {
-        (cell.innerHTML == 'F') ? cell.innerHTML = '' : cell.innerHTML = 'F';
+    // if (cell.classList.includes('flag') == '' || cell.style == 'F') {
+        (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
         (cell.style.color != 'red') ? cell.style.color == 'white' : cell.style.color == 'red';
-    }
+    // }
 }
 
 function lose() {
@@ -196,7 +200,7 @@ function lose() {
     firstClick = true;
     board.innerHTML = '';
     generateMatriz();
-    generateTable2();
+    generateTable();
 }
 
 function solveGame() {

@@ -32,3 +32,11 @@ html {
 .hover {
     background-color: lightskyblue;
 }
+
+.flag {
+    background-image: url(images/flag.png);
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 5px;
+}
