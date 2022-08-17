@@ -4,6 +4,10 @@ var solvedMatriz = new Array(tableSize);
 var firstClick = true;
 var bombs = 16;
 var board = document.getElementById('board');
+var buscaminas = document.getElementById('buscaminas');
+let resultDiv = document.getElementById('result');
+var restartButton = document.getElementById('restartButton');
+restartButton.addEventListener('click', restart)
 let bounces = 0;
 var cellsShowed = [];
 
@@ -179,28 +183,19 @@ function paintCell(i, j, mines) {
     }
 }
 
-// function placeFlag(cell) {
-//     if (cell.innerHTML == '' || cell.innerHTML == 'F') {
-//         (cell.innerHTML == 'F') ? cell.innerHTML = '' : cell.innerHTML = 'F';
-//         (cell.style.color != 'red') ? cell.style.color == 'white' : cell.style.color == 'red';
-//     }
-// }
 function placeFlag(cell) {
-    // if (cell.classList.includes('flag') == '' || cell.style == 'F') {
-        (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
-        (cell.style.color != 'red') ? cell.style.color == 'white' : cell.style.color == 'red';
-    // }
+    (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
 }
 
 function lose() {
-    alert('Has perdido');
-    delete matriz;
-    delete solvedMatriz;
-    cellsShowed = [];
-    firstClick = true;
-    board.innerHTML = '';
-    generateMatriz();
-    generateTable();
+    minesExplosion();
+    // alert('Has perdido');
+    let pResult = document.getElementById('pResult');
+    if (resultDiv.classList.contains('hide')) {
+        resultDiv.classList.add('show');
+        resultDiv.classList.remove('hide');
+    }
+    pResult.innerText = 'Has perdidooooooooooooo';
 }
 
 function solveGame() {
@@ -224,4 +219,32 @@ function solveGame() {
         }
     }
     console.log(solvedMatriz);
+}
+
+function minesExplosion() {
+    for (let i = 0; i < tableSize; i++) {
+        for (let j = 0; j < tableSize; j++) {
+            // console.log('explosion');
+            // setTimeout(function () {
+            //     if (matriz[i][j] == 'B') {
+            //         document.getElementById(`${i}${j}`).classList.add('bomb');
+            //     }
+            // }, 100000)
+            if (matriz[i][j] == 'B') {
+                document.getElementById(`${i}${j}`).classList.add('bomb');
+            }
+        }
+    }
+}
+
+function restart() {
+    resultDiv.classList.add('hide');
+    resultDiv.classList.remove('show');
+    delete matriz;
+    delete solvedMatriz;
+    cellsShowed = [];
+    firstClick = true;
+    board.innerHTML = '';
+    generateMatriz();
+    generateTable();
 }

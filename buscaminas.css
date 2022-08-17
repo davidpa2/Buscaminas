@@ -40,3 +40,47 @@ html {
     background-position-x: 5px;
     background-position-y: 5px;
 }
+
+.bomb {
+    background-image: url(images/bomb.png);
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 6px;
+}
+
+.sign {
+    background-color: aquamarine;
+    height: 50px;
+    border: 2px solid black;
+    border-end-start-radius: 10px;
+    border-end-end-radius: 10px;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.fifty {
+    width: 50%;
+}
+
+.button {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: lightseagreen;
+    border-radius: 6px;
+    border: 2px solid greenyellow;
+}
+
+.button:hover {
+    color: lightseagreen;
+    background-color: #ffffff;
+}
