@@ -52,7 +52,7 @@ function generateTable() {
                 click(`${i}`, `${j}`);
             })
             cell.addEventListener("contextmenu", function () {
-                placeFlag(cell);
+                placeFlag(cell, i, j);
             })
             // cell.addEventListener("auxclick", function () {
             //     cell.addEventListener('mouseenter', function () {
@@ -114,6 +114,11 @@ function click(i, j) {
             showCell(i, j);
         }
     }
+    if (matriz == solvedMatriz) {
+        alert('Has ganado');
+    }
+    console.log(matriz);
+    console.log(solvedMatriz);
 }
 
 /**
@@ -164,7 +169,7 @@ function paintCell(i, j, mines) {
     clickedCell.innerHTML = '';
     let number = document.createTextNode(mines);
     clickedCell.appendChild(number);
-    matriz[i][j] = number;
+    matriz[i][j] = mines;
     clickedCell.style.background = 'white';
 
     switch (mines) {
@@ -186,19 +191,19 @@ function paintCell(i, j, mines) {
     }
 }
 
-function placeFlag(cell) {
-
-    if (cell.classList.contains('flag')) {
-        cell.classList.remove('flag');
-        flags++;
-    } else {
-        if (flags > 0) {
-            cell.classList.add('flag');
-            flags--;
+function placeFlag(cell, i, j) {
+    if (typeof matriz[i][j] !== 'number') {
+        if (cell.classList.contains('flag')) {
+            cell.classList.remove('flag');
+            flags++;
+        } else {
+            if (flags > 0) {
+                cell.classList.add('flag');
+                flags--;
+            }
         }
+        placedFlags.innerText = flags;
     }
-    placedFlags.innerText = flags;
-
 }
 
 function lose() {
