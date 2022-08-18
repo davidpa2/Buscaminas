@@ -6,7 +6,7 @@ var bombs = 16;
 var flags = 0;
 var board = document.getElementById('board');
 var buscaminas = document.getElementById('buscaminas');
-let resultDiv = document.getElementById('result');
+let resultDiv = document.getElementById('resultSpan');
 var restartButton = document.getElementById('restartButton');
 restartButton.addEventListener('click', restart)
 var placedFlags = document.getElementById('placedFlags');
@@ -187,22 +187,22 @@ function paintCell(i, j, mines) {
 }
 
 function placeFlag(cell) {
-    if (flags > 0) {
-        if (cell.classList.contains('flag')) {
-            cell.classList.remove('flag');
-            flags++;
 
-        } else {
+    if (cell.classList.contains('flag')) {
+        cell.classList.remove('flag');
+        flags++;
+    } else {
+        if (flags > 0) {
             cell.classList.add('flag');
             flags--;
         }
-        placedFlags.innerText = flags;
     }
+    placedFlags.innerText = flags;
+
 }
 
 function lose() {
     minesExplosion();
-    // alert('Has perdido');
     let pResult = document.getElementById('pResult');
     if (resultDiv.classList.contains('hide')) {
         resultDiv.classList.add('show');

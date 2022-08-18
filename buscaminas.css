@@ -13,7 +13,7 @@ td {
 }
 
 html {
-    background-color: greenyellow;
+    background-color: lightgreen;
 }
 
 .cell {
@@ -64,6 +64,10 @@ html {
     justify-items: end;
 }
 
+#pResult {
+    align-self: center;
+}
+
 #scoreboard {
     background-color: aquamarine;
     height: 50px;
@@ -79,12 +83,13 @@ html {
 
 #placedFlags {
     align-self: center;
-    margin-right: 20px;
+    margin-right: 35px;
 }
 
 #flags {
     width: 40px;
-    margin-right: 20px;
+    margin-right: 40px;
+    margin-top: 5px;
 }
 
 .title {
