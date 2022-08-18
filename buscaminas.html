@@ -13,15 +13,17 @@
 
 <body oncontextmenu="return false;">
     <div id="buscaminas">
+        <div id="scoreboard" class="">
+            <h2 class="title">Buscaminas</h2>
+            <img id="flags" src="images/flag.png" alt="">
+            <h2 id="placedFlags"></h2>
+        </div>
+
         <table border="1" id="board"></table>
 
-        <div id="result" class="sign hide">
-            <div class="fifty">
-                <p id="pResult"></p>
-            </div>
-            <div class="fifty">
-                <button id="restartButton" class="button">Jugar de nuevo</button>
-            </div>
+        <div id="result" class="hide">
+            <h2 id="pResult"></h2>
+            <button id="restartButton" class="button">Jugar de nuevo</button>
         </div>
     </div>
 </body>

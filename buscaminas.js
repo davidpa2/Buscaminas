@@ -3,12 +3,13 @@ var matriz = new Array(tableSize);
 var solvedMatriz = new Array(tableSize);
 var firstClick = true;
 var bombs = 16;
+var flags = 0;
 var board = document.getElementById('board');
 var buscaminas = document.getElementById('buscaminas');
 let resultDiv = document.getElementById('result');
 var restartButton = document.getElementById('restartButton');
 restartButton.addEventListener('click', restart)
-let bounces = 0;
+var placedFlags = document.getElementById('placedFlags');
 var cellsShowed = [];
 
 generateMatriz();
@@ -132,6 +133,8 @@ function generateBombs(i, j) {
             generatedBombs++;
         }
     }
+    flags = generatedBombs;
+    placedFlags.innerText = generatedBombs;
     solveGame();
 }
 
@@ -184,7 +187,17 @@ function paintCell(i, j, mines) {
 }
 
 function placeFlag(cell) {
-    (cell.classList.contains('flag')) ? cell.classList.remove('flag') : cell.classList.add('flag');
+    if (flags > 0) {
+        if (cell.classList.contains('flag')) {
+            cell.classList.remove('flag');
+            flags++;
+
+        } else {
+            cell.classList.add('flag');
+            flags--;
+        }
+        placedFlags.innerText = flags;
+    }
 }
 
 function lose() {
@@ -195,7 +208,7 @@ function lose() {
         resultDiv.classList.add('show');
         resultDiv.classList.remove('hide');
     }
-    pResult.innerText = 'Has perdidooooooooooooo';
+    pResult.innerText = '¡Has perdido!';
 }
 
 function solveGame() {
@@ -224,12 +237,6 @@ function solveGame() {
 function minesExplosion() {
     for (let i = 0; i < tableSize; i++) {
         for (let j = 0; j < tableSize; j++) {
-            // console.log('explosion');
-            // setTimeout(function () {
-            //     if (matriz[i][j] == 'B') {
-            //         document.getElementById(`${i}${j}`).classList.add('bomb');
-            //     }
-            // }, 100000)
             if (matriz[i][j] == 'B') {
                 document.getElementById(`${i}${j}`).classList.add('bomb');
             }
@@ -242,6 +249,8 @@ function restart() {
     resultDiv.classList.remove('show');
     delete matriz;
     delete solvedMatriz;
+    flags = 0;
+    placedFlags.innerText = bombs;
     cellsShowed = [];
     firstClick = true;
     board.innerHTML = '';

@@ -1,7 +1,6 @@
 body {
     display: flex;
     justify-content: center;
-    padding-top: 6vw;
 }
 
 table {
@@ -49,12 +48,49 @@ html {
     background-position-y: 6px;
 }
 
-.sign {
+#result {
     background-color: aquamarine;
     height: 50px;
     border: 2px solid black;
     border-end-start-radius: 10px;
     border-end-end-radius: 10px;
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto); */
+    display: grid;
+    grid-template-columns: 250px 250px;
+    grid-template-rows: 50px;
+    justify-items: end;
+}
+
+#scoreboard {
+    background-color: aquamarine;
+    height: 50px;
+    border: 2px solid black;
+    border-start-start-radius: 10px;
+    border-start-end-radius: 10px;
+
+    display: grid;
+    grid-template-columns: auto 40px 30px;
+    grid-template-rows: 50px;
+    justify-items: end;
+}
+
+#placedFlags {
+    align-self: center;
+    margin-right: 20px;
+}
+
+#flags {
+    width: 40px;
+    margin-right: 20px;
+}
+
+.title {
+    justify-self: start;
+    margin-left: 40px;
+    align-self: center;
 }
 
 .show {
@@ -63,10 +99,6 @@ html {
 
 .hide {
     display: none;
-}
-
-.fifty {
-    width: 50%;
 }
 
 .button {
@@ -83,4 +115,5 @@ html {
 .button:hover {
     color: lightseagreen;
     background-color: #ffffff;
+    cursor: pointer;
 }
