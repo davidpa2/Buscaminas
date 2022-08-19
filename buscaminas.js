@@ -12,6 +12,11 @@ restartButton.addEventListener('click', restart)
 var placedFlags = document.getElementById('placedFlags');
 var cellsShowed = [];
 
+const soundExplosion = new Audio('/sound/explosion.mp3');
+const soundDock = new Audio('/sound/dock.mp3');
+const soundVictory = new Audio('/sound/victory.mp3');
+const soundKiwi = new Audio('/sound/kiwi.mp3');
+
 generateMatriz();
 generateTable();
 
@@ -124,6 +129,7 @@ function click(i, j) {
  * @param {*} j Coordenada j similar
  */
 function generateBombs(i, j) {
+    console.log(this.win);
     let x, y, generatedBombs = 0;
 
     while (generatedBombs < bombs) {
@@ -158,6 +164,7 @@ function showCell(i, j) {
             }
         }
     }
+    soundKiwi.play();
     paintCell(i, j, mines);
 }
 
@@ -191,6 +198,7 @@ function paintCell(i, j, mines) {
 function placeFlag(cell, i, j) {
     //Prevenir que una bandera sea puesta donde haya un número
     if (typeof matriz[i][j] !== 'number') {
+        soundDock.play();
         if (cell.classList.contains('flag')) {
             cell.classList.remove('flag');
             flags++;
@@ -215,7 +223,7 @@ function checkWin() {
                 victory = false;
                 break;
             }
-        }   
+        }
     }
     if (victory) {
         win();
@@ -245,6 +253,7 @@ function solveGame() {
 }
 
 function minesExplosion() {
+    soundExplosion.play();
     for (let i = 0; i < tableSize; i++) {
         for (let j = 0; j < tableSize; j++) {
             if (matriz[i][j] == 'B') {
@@ -283,5 +292,7 @@ function lose() {
 }
 
 function win() {
+    soundVictory.play();
     showResultDiv('¡Has ganado!');
+
 }
