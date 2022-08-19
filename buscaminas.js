@@ -114,11 +114,9 @@ function click(i, j) {
             showCell(i, j);
         }
     }
-    if (matriz == solvedMatriz) {
-        alert('Has ganado');
+    if (flags < 6) {
+        checkWin();
     }
-    console.log(matriz);
-    console.log(solvedMatriz);
 }
 
 /**
@@ -192,6 +190,7 @@ function paintCell(i, j, mines) {
 }
 
 function placeFlag(cell, i, j) {
+    //Prevenir que una bandera sea puesta donde haya un número
     if (typeof matriz[i][j] !== 'number') {
         if (cell.classList.contains('flag')) {
             cell.classList.remove('flag');
@@ -204,16 +203,24 @@ function placeFlag(cell, i, j) {
         }
         placedFlags.innerText = flags;
     }
+    if (flags < 6) {
+        checkWin();
+    }
 }
 
-function lose() {
-    minesExplosion();
-    let pResult = document.getElementById('pResult');
-    if (resultDiv.classList.contains('hide')) {
-        resultDiv.classList.add('show');
-        resultDiv.classList.remove('hide');
+function checkWin() {
+    let victory = true;
+    for (let i = 0; i < tableSize; i++) {
+        for (let j = 0; j < tableSize; j++) {
+            if (matriz[i][j] != solvedMatriz[i][j]) {
+                victory = false;
+                break;
+            }
+        }   
     }
-    pResult.innerText = '¡Has perdido!';
+    if (victory) {
+        win();
+    }
 }
 
 function solveGame() {
@@ -261,4 +268,22 @@ function restart() {
     board.innerHTML = '';
     generateMatriz();
     generateTable();
+}
+
+function showResultDiv(message) {
+    let pResult = document.getElementById('pResult');
+    if (resultDiv.classList.contains('hide')) {
+        resultDiv.classList.add('show');
+        resultDiv.classList.remove('hide');
+    }
+    pResult.innerText = message;
+}
+
+function lose() {
+    minesExplosion();
+    showResultDiv('¡Has perdido!');
+}
+
+function win() {
+    showResultDiv('¡Has ganado!');
 }
