@@ -54,10 +54,6 @@ html {
     border: 2px solid black;
     border-end-start-radius: 10px;
     border-end-end-radius: 10px;
-    /* display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto); */
     display: grid;
     grid-template-columns: 250px 250px;
     grid-template-rows: 50px;

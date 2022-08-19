@@ -27,7 +27,6 @@ function generateMatriz() {
             solvedMatriz[i][j] = '';
         }
     }
-    console.log(matriz);
 }
 
 /**
@@ -243,7 +242,6 @@ function solveGame() {
             }
         }
     }
-    console.log(solvedMatriz);
 }
 
 function minesExplosion() {
