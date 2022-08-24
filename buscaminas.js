@@ -3,20 +3,22 @@ var matriz = new Array(tableSize);
 var solvedMatriz = new Array(tableSize);
 var firstClick = true;
 var bombs = 16;
-var flags = 0;
+var flags = 0; // Número de banderas colocadas
 var board = document.getElementById('board');
 var buscaminas = document.getElementById('buscaminas');
 let resultDiv = document.getElementById('resultSpan');
 var restartButton = document.getElementById('restartButton');
 restartButton.addEventListener('click', restart)
 var placedFlags = document.getElementById('placedFlags');
-var cellsShowed = [];
+var cellsShowed = []; // Array en el que se guardarán las posiciones de las celdas que hayan sido mostradas en la tabla
 
+// Sonidos
 const soundExplosion = new Audio('/sound/explosion.mp3');
 const soundDock = new Audio('/sound/dock.mp3');
 const soundVictory = new Audio('/sound/victory.mp3');
 const soundKiwi = new Audio('/sound/kiwi.mp3');
 
+// Inicializar matriz y tabla HTML
 generateMatriz();
 generateTable();
 
@@ -51,7 +53,7 @@ function generateTable() {
             let value = document.createTextNode(matriz[i][j]);
             cell.appendChild(value);
             row.appendChild(cell);
-
+            // Detectar eventos del ratón en cada celda
             cell.addEventListener("click", function () {
                 click(`${i}`, `${j}`);
             })
@@ -111,15 +113,17 @@ function click(i, j) {
             generateBombs(i, j);
             firstClick = false;
         }
-
+        // Si se pulsa en una celda con una B, perder
         if (matriz[i][j] == 'B') {
             lose();
         } else {
             showCell(i, j);
         }
     }
+    // Para evitar comprobar si se ha ganado en cada momento, sólo hacerlo cuando queden 6 banderas por colocar
     if (flags < 6) {
         checkWin();
+        console.log('Comprobando victoria');
     }
 }
 
@@ -129,9 +133,8 @@ function click(i, j) {
  * @param {*} j Coordenada j similar
  */
 function generateBombs(i, j) {
-    console.log(this.win);
     let x, y, generatedBombs = 0;
-
+    // Ir generando números aleatorios del 0 al 9 para ir colocando minas en esas posiciones hasta que estén todas
     while (generatedBombs < bombs) {
         x = Math.floor(Math.random() * (0 - 10) + 10);
         y = Math.floor(Math.random() * (0 - 10) + 10);
@@ -146,6 +149,11 @@ function generateBombs(i, j) {
     solveGame();
 }
 
+/**
+ * Mostrar una celda con la cantidad de minas que tenga alrededor
+ * @param {*} i 
+ * @param {*} j 
+ */
 function showCell(i, j) {
     let mines = 0;
 
@@ -157,7 +165,8 @@ function showCell(i, j) {
                 }
                 if (!cellsShowed.includes(`${x}${y}`)) {
                     if (solvedMatriz[x][y] <= 1) {
-                        cellsShowed.push(`${x}${y}`);
+                        cellsShowed.push(`${x}${y}`); // Anotar la celda mostrada
+                        // Por recursividad llamar otra vez a esta función para abrir varias casillas con un click
                         showCell(`${x}`, `${y}`);
                     }
                 }
@@ -168,6 +177,12 @@ function showCell(i, j) {
     paintCell(i, j, mines);
 }
 
+/**
+ * Pintar el número que toque en la celda y del color que se le diga
+ * @param {*} i 
+ * @param {*} j 
+ * @param {*} mines 
+ */
 function paintCell(i, j, mines) {
     let clickedCell = document.getElementById(i + j);
     clickedCell.innerHTML = '';
@@ -195,6 +210,12 @@ function paintCell(i, j, mines) {
     }
 }
 
+/**
+ * Colocar uan bandera
+ * @param {*} cell 
+ * @param {*} i 
+ * @param {*} j 
+ */
 function placeFlag(cell, i, j) {
     //Prevenir que una bandera sea puesta donde haya un número
     if (typeof matriz[i][j] !== 'number') {
@@ -215,6 +236,9 @@ function placeFlag(cell, i, j) {
     }
 }
 
+/**
+ * Comprobar victoria
+ */
 function checkWin() {
     let victory = true;
     for (let i = 0; i < tableSize; i++) {
@@ -230,6 +254,9 @@ function checkWin() {
     }
 }
 
+/**
+ * Resolver el juego y guardar el resultado en una matriz para poder consultar y comparar
+ */
 function solveGame() {
     for (let i = 0; i < tableSize; i++) {
         for (let j = 0; j < tableSize; j++) {
@@ -252,6 +279,9 @@ function solveGame() {
     }
 }
 
+/**
+ * Al perder, mostrar todas las minas
+ */
 function minesExplosion() {
     soundExplosion.play();
     for (let i = 0; i < tableSize; i++) {
@@ -263,6 +293,9 @@ function minesExplosion() {
     }
 }
 
+/**
+ * Restablecer todos los valores para poder comenzar una nueva partida
+ */
 function restart() {
     resultDiv.classList.add('hide');
     resultDiv.classList.remove('show');
@@ -277,6 +310,10 @@ function restart() {
     generateTable();
 }
 
+/**
+ * Mostrar el div de los resultados
+ * @param {*} message 
+ */
 function showResultDiv(message) {
     let pResult = document.getElementById('pResult');
     if (resultDiv.classList.contains('hide')) {
