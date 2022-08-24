@@ -249,7 +249,7 @@ function checkWin() {
             }
         }
     }
-    if (victory) {
+    if (victory && !firstClick) {
         win();
     }
 }
