@@ -1,6 +1,6 @@
-# Buscaminas: &#128241;
+# Buscaminas: :bomb: :triangular_flag_on_post:
 
-Desarrollo del mítico juego Buscaminas en lenguaje JavaScript [JUGAR](https://davidpa2.github.io/Buscaminas/)
+Desarrollo del mítico juego Buscaminas en lenguaje JavaScript :bomb:[JUGAR](https://davidpa2.github.io/Buscaminas/):triangular_flag_on_post:
 
 ## Funcionamiento: 🚀
 ### ¡Disfruta del magnífico juego Buscaminas!
@@ -9,9 +9,10 @@ Este videojuego fue creado por Curt Johnson y Robert Donner en 1989. Su objetivo
 <img src="https://github.com/davidpa2/Buscaminas/blob/main/video/Buscaminas.gif">
 
 ### Controles
--Click derecho: Revelar celda. ¡Pero ve con cuidado, puede haber una mina!
 
--Click izquierdo: Colocar bandera. Donde creas que hay una mina seguro deberías de colocar una bandera para organizarte.
+-Click derecho (Escritorio) / Toque simple (móvil): Revelar celda. ¡Pero ve con cuidado, puede haber una mina!
+
+-Click izquierdo (Escritorio) / Mantener pulsado (móvil): Colocar bandera. Donde creas que hay una mina seguro deberías de colocar una bandera para organizarte.
 
 A nivel de código, está muy modulado con métodos breves consiguiendo así limpieza y sencillez. Además está todo comentado facilitando la legibilidad de este.
 
@@ -23,7 +24,7 @@ A nivel de código, está muy modulado con métodos breves consiguiendo así lim
 
 ## Uso 📌
 
-* Acceder a la página: [Buscaminas](https://davidpa2.github.io/Buscaminas/)
+* Acceder a la página: :bomb:[Buscaminas](https://davidpa2.github.io/Buscaminas/):triangular_flag_on_post:
 * Desde tu entorno de desarrollo abre el fichero .html en el navegador.
 
 ## Desarrollador ✒️
