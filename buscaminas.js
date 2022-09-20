@@ -66,7 +66,7 @@ function generateTable() {
                 window.setInterval(function () {
                     seconds++;
                 }, 1000);
-                if (seconds >= 2) {
+                if (seconds >= 1) {
                     placeFlag(cell, i, j);
                 }
             }
