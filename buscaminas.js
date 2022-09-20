@@ -60,6 +60,16 @@ function generateTable() {
             cell.addEventListener("contextmenu", function () {
                 placeFlag(cell, i, j);
             })
+            // Detectar una pulsación larga para colocar una bandera desde el móvil
+            cell.onmousedown = function () {
+                seconds = 0;
+                window.setInterval(function () {
+                    seconds++;
+                }, 1000);
+                if (seconds >= 2) {
+                    placeFlag(cell, i, j);
+                }
+            }
             // cell.addEventListener("auxclick", function () {
             //     cell.addEventListener('mouseenter', function () {
             //         for (let x = i - 1; x <= i + 1; x++) {
