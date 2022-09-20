@@ -1,6 +1,6 @@
 # Buscaminas: &#128241;
 
-Desarrollo del mítico juego Buscaminas en lenguaje JavaScript
+Desarrollo del mítico juego Buscaminas en lenguaje JavaScript [JUGAR](https://davidpa2.github.io/Buscaminas/)
 
 ## Funcionamiento: 🚀
 ### ¡Disfruta del magnífico juego Buscaminas!
