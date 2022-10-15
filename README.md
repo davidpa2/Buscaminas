@@ -10,9 +10,9 @@ Este videojuego fue creado por Curt Johnson y Robert Donner en 1989. Su objetivo
 
 ### Controles
 
--Click derecho (Escritorio) / Toque simple (móvil): Revelar celda. ¡Pero ve con cuidado, puede haber una mina!
+-Click izquierdo (Escritorio) / Toque simple (móvil): Revelar celda. ¡Pero ve con cuidado, puede haber una mina!
 
--Click izquierdo (Escritorio) / Mantener pulsado (móvil): Colocar bandera. Donde creas que hay una mina seguro deberías de colocar una bandera para organizarte.
+-Click derecho (Escritorio) / Mantener pulsado (móvil): Colocar bandera. Donde creas que hay una mina seguro deberías de colocar una bandera para organizarte.
 
 A nivel de código, está muy modulado con métodos breves consiguiendo así limpieza y sencillez. Además está todo comentado facilitando la legibilidad de este.
 
