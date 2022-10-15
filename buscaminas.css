@@ -77,21 +77,52 @@ html {
     justify-items: end;
 }
 
-#placedFlags {
-    align-self: center;
-    margin-right: 35px;
-}
-
-#flags {
-    width: 40px;
-    margin-right: 40px;
-    margin-top: 5px;
-}
-
 .title {
     justify-self: start;
     margin-left: 40px;
     align-self: center;
+}
+
+@media (max-width: 500px) {
+    .title {
+        display: none;
+    }
+}
+
+#timer {
+    display: flex;
+    justify-self: center;
+    margin-right: 200px;
+    align-self: center;
+    width: 100px;
+}
+
+#seconds {
+    /* margin-bottom: 20px; */
+    align-self: center;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+#flagsDiv {
+    display: flex;
+    align-self: center;  
+    width: 100px;  
+}
+
+#flags {
+    margin-right: 4px;
+    margin-top: 13px;
+    width: 40px;
+    height: 45px;
+    /* margin-right: 40px;
+    margin-top: 5px; */
+}
+
+#clock {
+    margin-top: 5px;
+    width: 55px;
+    height: 55px;
 }
 
 .show {

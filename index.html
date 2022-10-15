@@ -13,10 +13,16 @@
 
 <body oncontextmenu="return false;">
     <div id="buscaminas">
-        <div id="scoreboard" class="">
+        <div id="scoreboard">
             <h2 class="title">Buscaminas</h2>
-            <img id="flags" src="images/flag.png" alt="">
-            <h2 id="placedFlags"></h2>
+            <span id="timer">
+                <img id="clock" src="images/clock.png" alt="">
+                <h2 id="seconds"></h2>
+            </span>
+            <span id="flagsDiv">
+                <img id="flags" src="images/flag.png" alt="">
+                <h2 id="placedFlags"></h2>
+            </span>
         </div>
 
         <table border="2" id="board"></table>

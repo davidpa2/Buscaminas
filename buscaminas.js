@@ -11,6 +11,9 @@ var restartButton = document.getElementById('restartButton');
 restartButton.addEventListener('click', restart)
 var placedFlags = document.getElementById('placedFlags');
 var cellsShowed = []; // Array en el que se guardarán las posiciones de las celdas que hayan sido mostradas en la tabla
+var timerS = document.getElementById("seconds");
+var s = 0;
+var timer = 0;
 
 // Sonidos
 const soundExplosion = new Audio('/sound/explosion.mp3');
@@ -122,6 +125,7 @@ function click(i, j, cell) {
         if (firstClick) {
             generateBombs(i, j);
             firstClick = false;
+            setTimer();
         }
         // Si se pulsa en una celda con una B, perder
         if (matriz[i][j] == 'B') {
@@ -316,6 +320,7 @@ function restart() {
     cellsShowed = [];
     firstClick = true;
     board.innerHTML = '';
+    timerS.innerHTML = s;
     generateMatriz();
     generateTable();
 }
@@ -334,12 +339,25 @@ function showResultDiv(message) {
 }
 
 function lose() {
+    timerOut()
     minesExplosion();
     showResultDiv('¡Has perdido!');
 }
 
 function win() {
+    timerOut()
     soundVictory.play();
     showResultDiv('¡Has ganado!');
+}
 
+function timerOut() {
+    clearInterval(timer);
+    s = 0;
+}
+
+function setTimer() {
+    timer = window.setInterval(function () {
+        timerS.innerHTML = s;
+        s++;
+    }, 1000);
 }
