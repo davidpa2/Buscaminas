@@ -55,7 +55,7 @@ function generateTable() {
             row.appendChild(cell);
             // Detectar eventos del ratón en cada celda
             cell.addEventListener("click", function () {
-                click(`${i}`, `${j}`);
+                click(`${i}`, `${j}`, cell);
             })
             cell.addEventListener("contextmenu", function () {
                 placeFlag(cell, i, j);
@@ -116,8 +116,8 @@ function generateTable() {
  * @param {*} i 
  * @param {*} j 
  */
-function click(i, j) {
-    if (matriz[i][j] == '' || matriz[i][j] == 'B') {
+function click(i, j, cell) {
+    if ((matriz[i][j] == '' || matriz[i][j] == 'B') && !cell.classList.contains('flag')) {
         console.log(`Click: ${i} , ${j}`);
         if (firstClick) {
             generateBombs(i, j);
@@ -228,7 +228,7 @@ function paintCell(i, j, mines) {
  */
 function placeFlag(cell, i, j) {
     //Prevenir que una bandera sea puesta donde haya un número
-    if (typeof matriz[i][j] !== 'number') {
+    if (typeof matriz[i][j] !== 'number' && !firstClick) {
         soundDock.play();
         if (cell.classList.contains('flag')) {
             cell.classList.remove('flag');
