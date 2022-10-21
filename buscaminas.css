@@ -17,11 +17,23 @@ html {
     background-color: lightgreen;
 }
 
+.border {
+    border: 2px solid black;
+    margin-top: -1px;
+}
+
 .cell {
-    background-color: lightseagreen;
     width: 40px;
     height: 40px;
-    font-size: 25px;
+    font-size: 27px;
+}
+
+.pairCell {
+    background-color: rgb(32, 200, 170);
+}
+
+.oddCell {
+    background-color: rgb(32, 180, 170);
 }
 
 .cell:hover {

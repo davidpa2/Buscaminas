@@ -49,9 +49,7 @@ function generateTable() {
         let row = document.createElement('tr');
         board.appendChild(row);
         for (let j = 0; j < matriz[i].length; j++) {
-            let cell = document.createElement('td');
-            cell.classList += 'cell';
-            cell.id = `${i}${j}`;
+            let cell = generateCell(i, j);
 
             let value = document.createTextNode(matriz[i][j]);
             cell.appendChild(value);
@@ -121,7 +119,7 @@ function generateTable() {
  */
 function click(i, j, cell) {
     // Si se muestra el div de los resultados, ha terminado la partida y no se podrá hacer click sobre el tablero
-    if (resultDiv.classList.contains('hide')) {  
+    if (resultDiv.classList.contains('hide')) {
         if ((matriz[i][j] == '' || matriz[i][j] == 'B') && !cell.classList.contains('flag')) {
             console.log(`Click: ${i} , ${j}`);
             if (firstClick) {
@@ -142,6 +140,17 @@ function click(i, j, cell) {
             console.log('Comprobando victoria');
         }
     }
+}
+
+function generateCell(i, j) {
+    let cell = document.createElement('td');
+    cell.classList += 'cell';
+
+    if (j % 2 == (i % 2 == 0 ? 0 : 1)) cell.classList.add('pairCell');
+    else cell.classList.add('oddCell');
+
+    cell.id = `${i}${j}`;
+    return cell;
 }
 
 /**
@@ -206,7 +215,10 @@ function paintCell(i, j, mines) {
     let number = document.createTextNode(mines);
     clickedCell.appendChild(number);
     matriz[i][j] = mines;
-    clickedCell.style.background = 'white';
+
+    // Crear una matriz de ajedrez con los colores una vez se abra una celda
+    if (j % 2 == (i % 2 == 0 ? 0 : 1)) clickedCell.style.background = 'white';
+    else clickedCell.style.background = '#ededf5';
 
     switch (mines) {
         case 1:
