@@ -120,24 +120,27 @@ function generateTable() {
  * @param {*} j 
  */
 function click(i, j, cell) {
-    if ((matriz[i][j] == '' || matriz[i][j] == 'B') && !cell.classList.contains('flag')) {
-        console.log(`Click: ${i} , ${j}`);
-        if (firstClick) {
-            generateBombs(i, j);
-            firstClick = false;
-            setTimer();
+    // Si se muestra el div de los resultados, ha terminado la partida y no se podrá hacer click sobre el tablero
+    if (resultDiv.classList.contains('hide')) {  
+        if ((matriz[i][j] == '' || matriz[i][j] == 'B') && !cell.classList.contains('flag')) {
+            console.log(`Click: ${i} , ${j}`);
+            if (firstClick) {
+                generateBombs(i, j);
+                firstClick = false;
+                setTimer();
+            }
+            // Si se pulsa en una celda con una B, perder
+            if (matriz[i][j] == 'B') {
+                lose();
+            } else {
+                showCell(i, j);
+            }
         }
-        // Si se pulsa en una celda con una B, perder
-        if (matriz[i][j] == 'B') {
-            lose();
-        } else {
-            showCell(i, j);
+        // Para evitar comprobar si se ha ganado en cada momento, sólo hacerlo cuando queden 6 banderas por colocar
+        if (flags < 6) {
+            checkWin();
+            console.log('Comprobando victoria');
         }
-    }
-    // Para evitar comprobar si se ha ganado en cada momento, sólo hacerlo cuando queden 6 banderas por colocar
-    if (flags < 6) {
-        checkWin();
-        console.log('Comprobando victoria');
     }
 }
 
@@ -232,7 +235,7 @@ function paintCell(i, j, mines) {
  */
 function placeFlag(cell, i, j) {
     //Prevenir que una bandera sea puesta donde haya un número
-    if (typeof matriz[i][j] !== 'number' && !firstClick) {
+    if (typeof matriz[i][j] !== 'number' && !firstClick && resultDiv.classList.contains('hide')) {
         soundDock.play();
         if (cell.classList.contains('flag')) {
             cell.classList.remove('flag');
