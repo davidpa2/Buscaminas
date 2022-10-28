@@ -216,7 +216,7 @@ function showCell(i, j, spread = true) {
 function paintCell(i, j, mines) {
     let clickedCell = document.getElementById(i + j);
     clickedCell.innerHTML = '';
-    let number = document.createTextNode(mines);
+    let number = document.createTextNode((mines == 0 ? '' : mines));
     clickedCell.appendChild(number);
     matriz[i][j] = mines;
 
