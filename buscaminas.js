@@ -2,7 +2,7 @@ var tableSize = 10;
 var matriz = new Array(tableSize);
 var solvedMatriz = new Array(tableSize);
 var firstClick = true;
-var bombs = 16;
+var bombs = 18;
 var flags = 0; // Número de banderas colocadas
 var board = document.getElementById('board');
 var buscaminas = document.getElementById('buscaminas');
@@ -180,7 +180,7 @@ function generateBombs(i, j) {
  * @param {*} i 
  * @param {*} j 
  */
-function showCell(i, j) {
+function showCell(i, j, spread = true) {
     let mines = 0;
 
     for (let x = parseInt(i) - 1; x <= parseInt(i) + 1; x++) {
@@ -189,11 +189,15 @@ function showCell(i, j) {
                 if (matriz[x][y] == 'B') {
                     mines++;
                 }
-                if (!cellsShowed.includes(`${x}${y}`)) {
-                    if (solvedMatriz[x][y] <= 1) {
+                if (!cellsShowed.includes(`${x}${y}`) && !document.getElementById(`${x}${y}`).classList.contains('flag')) {
+                    if (solvedMatriz[x][y] == 0) {
                         cellsShowed.push(`${x}${y}`); // Anotar la celda mostrada
                         // Por recursividad llamar otra vez a esta función para abrir varias casillas con un click
-                        showCell(`${x}`, `${y}`);
+                        showCell(`${x}`, `${y}`, true);
+                    }
+                    if (solvedMatriz[x][y] > 0 && spread == true) {
+                        cellsShowed.push(`${x}${y}`);
+                        showCell(`${x}`, `${y}`, false);
                     }
                 }
             }
